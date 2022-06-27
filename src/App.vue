@@ -3,7 +3,7 @@
     <h1>{{ titulo }}</h1>
 
     <ul>
-      <li :v-for='foto in fotos'>
+      <li v-for='foto in fotos'>
         <img :src="foto.url" :alt="foto.titulo">
       </li>
     </ul>
@@ -13,21 +13,21 @@
 
 <script>
 export default {
-  data(){
+
+data(){
+
     return {
 
       titulo: 'Alurapic',
-      fotos: [
-        {
-          url: "https://blog.farmaciadebicho.com.br/wp-content/uploads/2017/08/cachorro-mergulhando-2.jpg",
-          titulo: 'cachorro'
-        },
-        {
-          url: "https://blog.farmaciadebicho.com.br/wp-content/uploads/2017/08/cachorro-mergulhando-2.jpg",
-          titulo: 'cachorro'
-        }
-      ]
+      fotos: []
     }
+  },
+
+  created() {
+
+    this.$http.get('http://localhost:3000/v1/fotos')
+      .then(res => res.json())
+      .then(fotos => this.fotos = fotos, err => console.log(err));
   }
 }
 </script>
