@@ -53,7 +53,7 @@ export default {
         opacity: 0;
     }
 
-    .painel-fade-enter-active, .painek-fade-leave-active {
+    .painel-fade-enter-active, .painel-fade-leave-active {
         transition: opacity 1s;
     }
 </style>
