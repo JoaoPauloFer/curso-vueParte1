@@ -2,12 +2,14 @@
   <div class="corpo">
     <h1 class="centralizado">{{ titulo }}</h1>
 
-    <ul class="lista-fotos">
-      <li class="lista-fotos-item" v-for='foto in fotos'>
+    <input type="search" class="filtro" v-on:input="filtro = $event.target.value" placeholder="filtre por parte do título">
 
-        <mue-painel :titulo="foto.titulo">
+    <ul class="lista-fotos">
+      <li class="lista-fotos-item" v-for='foto in fotosComFiltro'>
+
+        <meu-painel :titulo="foto.titulo">
           <img class="imagem-responsiva" :src="foto.url" :alt="foto.titulo">
-        </mue-painel>
+        </meu-painel>
 
 
       </li>
@@ -20,23 +22,37 @@ import painel from './component/shared/painel/painel.vue';
 export default {
 
 components: {
-  'mue-painel': painel
+  'meu-painel': painel
 },  
 
 data(){
 
-    return {
+  return {
 
       titulo: 'Alurapic',
-      fotos: []
+      fotos: [],
+      filtro: ''
     }
   },
 
-  created() {
+computed: {
 
-    this.$http.get('http://localhost:3000/v1/fotos')
-      .then(res => res.json())
-      .then(fotos => this.fotos = fotos, err => console.log(err));
+  fotosComFiltro() {
+
+    if(this.filtro){
+      let exp = new RegExp(this.filtro.trim(), 'i');
+      return this.fotos.filter(foto => exp.test(foto.titulo))
+    } else {
+      return this.fotos
+    }
+  }
+},
+
+
+created() {
+  this.$http.get('http://localhost:3000/v1/fotos')
+    .then(res => res.json())
+    .then(fotos => this.fotos = fotos, err => console.log(err));
   }
 }
 </script>
@@ -62,6 +78,11 @@ data(){
   }
 
   .imagem-responsiva {
+    width: 100%;
+  }
+
+  .filtro {
+    display: block;
     width: 100%;
   }
 </style>
