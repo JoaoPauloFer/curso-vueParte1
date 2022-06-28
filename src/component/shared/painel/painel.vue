@@ -3,6 +3,7 @@
           <h2 class="painel-titulo">{{titulo}}</h2>
           <div>
         </div>
+        </div>
 </template>
 
 <script>
