@@ -6,7 +6,7 @@
       <li class="lista-fotos-item" v-for='foto in fotos'>
 
         <mue-painel :titulo="foto.titulo">
-          <img class="imagem-responsiva" src="foto.url" alt="foto.titulo">
+          <img class="imagem-responsiva" :src="foto.url" :alt="foto.titulo">
         </mue-painel>
 
 
