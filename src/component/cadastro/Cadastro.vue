@@ -8,20 +8,20 @@
       <div class="controle">
         <label for="titulo">TÍTULO</label>
         <input id="titulo" autocomplete="off" 
-        v-on:input="foto.titulo = $event.target.value" :value="foto.titulo">
+        v-model.lazy="foto.titulo">
       </div>
 
       <div class="controle">
         <label for="url">URL</label>
         <input id="url" autocomplete="off" 
-        v-on:input="foto.url = $event.target.value" :value="foto.url">
-        <imagem-responsiva/>
+        v-model.lazy="foto.url">
+        <imagem-responsiva v-show="foto.url" :url="foto.url" :titulo="foto.titulo" />
       </div>
 
       <div class="controle">
         <label for="descricao">DESCRIÇÃO</label>
         <textarea id="descricao" autocomplete="off" 
-        v-on:input="foto.descricao = $event.target.value" :value="foto.descricao"></textarea >
+        v-model="foto.descricao"></textarea >
       </div>
 
       <div class="centralizado">
@@ -60,7 +60,7 @@ export default {
   methods: {
 
     grava() {
-        console.log('enviando para a api')
+        console.log('enviando para a api');
         this.foto.titulo = '';
         this.foto.url = '';
         this.foto.descricao = '';
