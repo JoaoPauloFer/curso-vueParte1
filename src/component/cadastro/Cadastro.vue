@@ -3,6 +3,9 @@
   <div>
     <h1 class="centralizado">Cadastro</h1>
     <h2 class="centralizado"></h2>
+    
+    <h1 v-if="foto._id" class="centralizado" >Alteração</h1>
+    <h1 v-else class="centralizado" >Inclução</h1>
 
     <form @submit.prevent="grava()">
       <div class="controle">
@@ -51,7 +54,9 @@ export default {
   data() {
 
     return {
-        foto: new Foto()
+      foto: new Foto(),
+      
+      id: this.$route.params.id
     }
   },
 
@@ -61,12 +66,22 @@ export default {
         
         this.service
             .cadastra(this.foto)
-            .then(() => this.foto = new Foto(), err => console.log(err));
+            .then(() => {
+              if(this.id) this.$router.push({ name: 'home' })
+              this.foto = new Foto() 
+            },
+              err => console.log(err));
     }
   },
 
   created() {
     this.service = new FotoService(this.$resource)
+
+    if(this.id) {
+      this.service
+        .busca(this.id)
+        .then(foto => this.foto = foto);
+    }
   }
 }
 
