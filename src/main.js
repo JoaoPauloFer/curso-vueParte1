@@ -5,7 +5,9 @@ import VueRouter from 'vue-router';
 import  { routes } from './routes';
 import './directives/Transform';
 import VeeValidade from 'vee-validate';
-import msg from './pt_BR'
+import msg from './pt_BR';
+
+import 'bootstrap/dist/css/bootstrap.css';
 
 Vue.use(VueResource);
 Vue.http.options.root = 'http://localhost:3000';
